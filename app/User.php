@@ -18,7 +18,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username', 'verification_code'
+        'name', 'email', 'password', 'username', 'verification_code', 'email_verified_at', 'role_id', 'api_token'
     ];
 
     /**
@@ -27,7 +27,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password', 'remember_token'
     ];
 
     public function register($name, $email, $username, $password, $verification_code)
@@ -37,7 +37,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
             'email' => $email,
             'username' => $username,
             'password' => $password,
-            'verification_code' => $verification_code
+            'verification_code' => $verification_code,
+            'role_id' => 3
         ]);
         if ($user) {
             return true;

@@ -16,3 +16,10 @@ $router->get('/', function () use ($router) {
 });
 
 $router->post('/register', 'UsersController@register');
+$router->get('/verify/{token}', 'UsersController@verify');
+$router->post('/login', 'UsersController@login');
+
+$router->get('/test', function(){
+    $name = "asdasd";
+    return view('emails.register', compact('name'));
+});
