@@ -47,24 +47,22 @@ class ProductController extends Controller
     }
 
     public function store(Request $request){
-//        $temp = Validator::make($request->all(), [
-//            'title' => 'required|min:3|max:255',
-//            'thumbnail' => 'required|image',
-//            'price' => 'required',
-//            'stock' => 'required',
-//            'category_id' => 'required',
-//            'description' => 'required'
-//        ]);
-//
-//        if($temp->fails()){
-//            return json_response_error("Gagal menambahkan product", $temp->errors());
-//        }
+        $temp = Validator::make($request->all(), [
+            'title' => 'required|min:3|max:255',
+            'thumbnail' => 'required|image',
+            'price' => 'required',
+            'stock' => 'required',
+            'category_id' => 'required',
+            'description' => 'required'
+        ]);
 
-//        return $request->files == 1 ? 1 : 0;
+        if($temp->fails()){
+            return json_response_error("Gagal menambahkan product", $temp->errors());
+        }
+
         $user = User::auth($request);
         $file = $request->file('thumbnail');
-        $thumbnail = $file->storePublicly('assets/products/' . Str::random(16) . '.' . $file->getClientOriginalExtension());
-        return $thumbnail;
+        $thumbnail = $file->storeAs('assets/products', Str::random(16) . '.' . $file->getClientOriginalExtension());
 
         $product = Product::create([
             'user_id' => $user->id,

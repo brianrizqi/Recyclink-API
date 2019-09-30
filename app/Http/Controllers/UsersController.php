@@ -66,7 +66,8 @@ class UsersController extends Controller
             'success' => 1,
             'message' => 'Login berhasil',
             'token' => $token,
-            'role' => $user->role_id
+            'role' => $user->role_id,
+            'user' => $user
         ]);
 
     }
