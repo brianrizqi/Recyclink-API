@@ -19,6 +19,7 @@ $router->post('/register', 'UsersController@register');
 $router->get('/verify/{token}', 'UsersController@verify');
 $router->post('/login', 'UsersController@login');
 $router->post('/logout', 'UsersController@logout');
+$router->get('/product-category', 'ProductController@category');
 
 $router->group(['middleware' => 'token'], function () use ($router){
     $router->get('/profile', 'ProfileController@getProfile');
@@ -31,10 +32,10 @@ $router->group(['middleware' => 'token'], function () use ($router){
 
     $router->get('/my-order', 'OrderController@myOrder');
 
-    $router->get('/product-category', 'ProductController@category');
     $router->post('/get-product-by-category', 'ProductController@getProductByCategory');
 
     $router->get('/recycle-category', 'RecycleController@category');
     $router->post('/recycle', 'RecycleController@store');
+
 
 });

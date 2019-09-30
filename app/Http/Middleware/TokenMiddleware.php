@@ -21,7 +21,7 @@ class TokenMiddleware
             return response()->json([
                 'success' => 0,
                 'message' => 'Token Unavailable'
-            ]);
+            ], 401);
         }
 
         $user = User::where('api_token', $token)->first();
@@ -30,7 +30,7 @@ class TokenMiddleware
             return response()->json([
                 'success' => 0,
                 'message' => 'Token Invalid'
-            ]);
+            ], 401);
         }
 
         return $next($request);
