@@ -18,8 +18,18 @@ $router->get('/', function () use ($router) {
 $router->post('/register', 'UsersController@register');
 $router->get('/verify/{token}', 'UsersController@verify');
 $router->post('/login', 'UsersController@login');
+$router->post('/logout', 'UsersController@logout');
 
-$router->get('/test', function(){
-    $name = "asdasd";
-    return view('emails.register', compact('name'));
+$router->group(['middleware' => 'token'], function () use ($router){
+    $router->get('/products', 'ProductController@index');
+    $router->get('/fav-products', 'ProductController@favouriteProducts');
+    $router->get('/new-products', 'ProductController@newProducts');
+
+    $router->get('/my-order', 'OrderController@myOrder');
+
+    $router->get('/product-category', 'ProductController@category');
+    $router->post('/get-product-by-category', 'ProductController@getProductByCategory');
+
+    $router->get('/recycle-category', 'RecycleController@category');
+    $router->post('/recycle', 'RecycleController@store');
 });

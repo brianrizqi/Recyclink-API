@@ -8,8 +8,9 @@ class ProductCategory extends Model
     use SoftDeletes;
     protected $table = 'product_categories';
     protected $fillable = ['category', 'title'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function products(){
-        return $this->hasMany('App\Product', 'category_id');w
+        return $this->hasMany('App\Product', 'category_id');
     }
 }

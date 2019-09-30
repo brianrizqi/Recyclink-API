@@ -70,6 +70,14 @@ class UsersController extends Controller
 
     }
 
+    public function logout(Request $request){
+        $user = User::auth($request);
+        $user->update([
+            'api_token' => null
+        ]);
+        return json_response(1,'Logout Berhasil');
+    }
+
     public function verify($token)
     {
         $user = User::where('verification_code', $token)->first();

@@ -8,6 +8,7 @@ class Product extends Model
     use SoftDeletes;
     protected $table = 'products';
     protected $fillable = ['user_id', 'title', 'price', 'stock', 'category_id', 'description'. 'rating'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function user(){
         return $this->belongsTo('App\User', 'user_id');
