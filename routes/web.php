@@ -37,5 +37,19 @@ $router->group(['middleware' => 'token'], function () use ($router){
     $router->get('/recycle-category', 'RecycleController@category');
     $router->post('/recycle', 'RecycleController@store');
 
+});
 
+$router->get('provinces', function(){
+    $rajaongkir = new \Steevenz\Rajaongkir(env("RAJAONGKIR_API"), \Steevenz\Rajaongkir::ACCOUNT_STARTER);
+    return json_response(1, "", [
+        "provinces" => $rajaongkir->getProvinces()
+    ]);
+});
+
+$router->post('cities', function(\Illuminate\Http\Request $request){
+    $city = $request->city_id;
+    $rajaongkir = new \Steevenz\Rajaongkir("RAJAONGKIR_API", \Steevenz\Rajaongkir::ACCOUNT_STARTER);
+    return json_response(1, "", [
+        "cities" => $rajaongkir->getCity($city)
+    ]);
 });
