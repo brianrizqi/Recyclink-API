@@ -62,7 +62,7 @@ class ProductController extends Controller
 
         $user = User::auth($request);
         $file = $request->file('thumbnail');
-        $thumbnail = $file->storeAs('assets/products', Str::random(16) . '.' . $file->getClientOriginalExtension());
+        $thumbnail = $file->storeAs('public/assets/products', Str::random(16) . '.' . $file->getClientOriginalExtension());
 
         $product = Product::create([
             'user_id' => $user->id,

@@ -99,4 +99,12 @@ class UsersController extends Controller
             ]);
         }
     }
+
+    public function getProfile(Request $request){
+        $user = User::auth($request);
+
+        return json_response(1, "Berhasil", [
+            'user' => $user,
+        ]);
+    }
 }
