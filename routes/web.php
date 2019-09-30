@@ -32,4 +32,6 @@ $router->group(['middleware' => 'token'], function () use ($router){
 
     $router->get('/recycle-category', 'RecycleController@category');
     $router->post('/recycle', 'RecycleController@store');
+
+    $router->post('/product', 'ProductController@store');
 });

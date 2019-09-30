@@ -86,7 +86,7 @@ $app->alias('mailer', Illuminate\Mail\Mailer::class);
 $app->alias('mailer', Illuminate\Contracts\Mail\Mailer::class);
 $app->alias('mailer', Illuminate\Contracts\Mail\MailQueue::class);
 
-$app->middleware([\App\Http\Middleware\TokenMiddleware::class]);
+//$app->middleware([\App\Http\Middleware\TokenMiddleware::class]);
 $app->routeMiddleware([
     'token' => \App\Http\Middleware\TokenMiddleware::class
 ]);
