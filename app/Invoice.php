@@ -18,8 +18,4 @@ class Invoice extends Model
     public function buyer(){
         return $this->belongsTo('App\User', 'user_id');
     }
-
-    public function recycle_orders(){
-        return $this->hasMany('App\RecycleOrder', 'invoice_id');
-    }
 }

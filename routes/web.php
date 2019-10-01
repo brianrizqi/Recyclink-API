@@ -31,25 +31,27 @@ $router->group(['middleware' => 'token'], function () use ($router){
     $router->post('/product', 'ProductController@store');
 
     $router->get('/my-order', 'OrderController@myOrder');
+    $router->get('/order', 'OrderController@order');
 
     $router->post('/get-product-by-category', 'ProductController@getProductByCategory');
 
     $router->get('/recycle-category', 'RecycleController@category');
     $router->post('/recycle', 'RecycleController@store');
-
 });
 
-$router->get('provinces', function(){
+$router->get('/provinces', function(){
     $rajaongkir = new \Steevenz\Rajaongkir(env("RAJAONGKIR_API"), \Steevenz\Rajaongkir::ACCOUNT_STARTER);
     return json_response(1, "", [
         "provinces" => $rajaongkir->getProvinces()
     ]);
 });
 
-$router->post('cities', function(\Illuminate\Http\Request $request){
-    $city = $request->city_id;
+$router->post('/cities', function(\Illuminate\Http\Request $request){
+    $province = $request->province_id;
     $rajaongkir = new \Steevenz\Rajaongkir("RAJAONGKIR_API", \Steevenz\Rajaongkir::ACCOUNT_STARTER);
+//    return $rajaongkir->getCouriersList();
+    return json_encode($rajaongkir->getCost(11, 12, ["jne"]));
     return json_response(1, "", [
-        "cities" => $rajaongkir->getCity($city)
+        "cities" => $rajaongkir->getCities($province)
     ]);
 });
