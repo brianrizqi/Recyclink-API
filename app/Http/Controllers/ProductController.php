@@ -93,6 +93,6 @@ class ProductController extends Controller
     {
         $user = User::auth($request);
 
-        return json_response(1, "Berhasil", $user->product);
+        return json_response(1, "Berhasil", $user->products);
     }
 }
