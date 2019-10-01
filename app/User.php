@@ -41,4 +41,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         $user = User::where('api_token', $token)->first();
         return $user;
     }
+
+    public function products(){
+        return $this->hasMany('App\Product', 'user_id');
+    }
 }

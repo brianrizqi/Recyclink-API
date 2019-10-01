@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use App\Product;
 use App\ProductCategory;
@@ -12,12 +14,14 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $data = Product::get();
         return json_response(1, 'Berhasil', $data);
     }
 
-    public function favouriteProducts(){
+    public function favouriteProducts()
+    {
         $data = Product::with('user')
             ->orderBy('rating', 'desc')
             ->get()
@@ -25,7 +29,8 @@ class ProductController extends Controller
         return json_response(1, 'Berhasil', $data);
     }
 
-    public function newProducts(){
+    public function newProducts()
+    {
         $data = Product::with('user')
             ->orderBy('rating', 'desc')
             ->get()
@@ -33,13 +38,15 @@ class ProductController extends Controller
         return json_response(1, 'Berhasil', $data);
     }
 
-    public function category(){
+    public function category()
+    {
         $data = ProductCategory::select('id', 'category', 'title')->get();
         return json_response(1, 'Berhasil', $data);
     }
 
-    public function getProductByCategory(Request $request){
-        if(!$request->has('category_id')){
+    public function getProductByCategory(Request $request)
+    {
+        if (!$request->has('category_id')) {
             return json_response(0, 'Something Error');
         }
 
@@ -47,7 +54,8 @@ class ProductController extends Controller
         return json_response(1, 'Berhasil', $data);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 //        $temp = Validator::make($request->all(), [
 //            'title' => 'required|min:3|max:255',
 //            'thumbnail' => 'required',
@@ -61,13 +69,13 @@ class ProductController extends Controller
 ////            return json_response_error("Gagal menambahkan product", $temp->errors());
 ////        }
 
-
+//        return $request->description;
         $user = User::auth($request);
         $image = $request->thumbnail;
         $image = str_replace('data:image/png;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
-        $imageName = Str::random(10).'.'.'png';
-        $file = File::put(storage_path() . '/app/public/assets/product/' . $imageName, base64_decode($image));
+        $imageName = Str::random(10) . '.' . 'png';
+        $file = File::put(storage_path() . '/app/public/assets/products/' . $imageName, base64_decode($image));
         $product = Product::create([
             'user_id' => $user->id,
             'title' => $request->title,
@@ -79,5 +87,12 @@ class ProductController extends Controller
         ]);
 
         return json_response(1, "Berhasil menambahkan product", $product);
+    }
+
+    public function myProducts(Request $request)
+    {
+        $user = User::auth($request);
+
+        return json_response(1, "Berhasil", $user->product);
     }
 }
