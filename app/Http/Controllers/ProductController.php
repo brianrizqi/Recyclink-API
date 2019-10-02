@@ -70,18 +70,24 @@ class ProductController extends Controller
 ////        }
 
 //        return $request->description;
+//	return json_response(0, "debug " . json_encode($request->all()));
         $user = User::auth($request);
-        $image = $request->thumbnail;
-        $image = str_replace('data:image/png;base64,', '', $image);
-        $image = str_replace(' ', '+', $image);
-        $imageName = Str::random(10) . '.' . 'png';
-        $file = File::put(storage_path() . '/app/public/assets/products/' . $imageName, base64_decode($image));
+	$file = $request->file('thumbnail');
+	$image = $request->thumbnail;
+	$filename = Str::random(16) . '.' . $file->getClientOriginalExtension();
+        $thumbnail = $file->storeAs('public/assets/products', $filename);
+//        $image = $request->thumbnail;
+//        $image = str_replace('data:image/png;base64,', '', $image);
+//        $image = str_replace(' ', '+', $image);
+//        $imageName = Str::random(10) . '.' . 'png';
+//        $file = File::put(storage_path() . '/app/public/assets/products/' . $imageName, base64_decode($image));
         $product = Product::create([
             'user_id' => $user->id,
             'title' => $request->title,
             'price' => $request->price,
             'stock' => $request->stock,
-            'thumbnail' => url('storage/assets/product/' . $imageName),
+	    'thumbnail' => url('/storage/assets/products/' . $filename),
+//            'thumbnail' => url('storage/assets/product/' . $imageName),
             'category_id' => $request->category_id,
             'description' => $request->description,
         ]);
