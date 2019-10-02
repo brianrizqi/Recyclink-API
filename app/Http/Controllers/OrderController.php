@@ -26,7 +26,8 @@ class OrderController extends Controller
         $rajaongkir = new Rajaongkir(env("RAJAONGKIR_API"), Rajaongkir::ACCOUNT_STARTER);
 //        $rajaongkir->getCost()
 
-        DB::transaction(function () use ($user, $request) {
+        DB::beginTransaction();
+        try {
             $invoice = Invoice::create([
                 'user_id' => $user->id,
                 'alamat' => $request->alamat,
@@ -45,7 +46,13 @@ class OrderController extends Controller
             $invoice->update([
                 'total_price' => $total
             ]);
-        });
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return json_response_error("Data gagal diinputkan");
+        }
+
         /*
          * product_id
          * quantity
