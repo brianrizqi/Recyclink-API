@@ -40,7 +40,8 @@ class OrderController extends Controller
             ProductOrder::create([
                 'invoice_id' => $invoice,
                 'product_id' => $request->product_id,
-                'quantity' => $request->quantity
+                'quantity' => $request->quantity,
+                'payment' => $request->payment
             ]);
 
             $invoice->update([
