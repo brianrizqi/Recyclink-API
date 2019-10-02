@@ -8,7 +8,7 @@ class Invoice extends Model
     use SoftDeletes;
 
     protected $table = 'invoices';
-    protected $fillable = ['user_id', 'total_price', 'resi', 'status'];
+    protected $fillable = ['user_id', 'total_price', 'alamat', 'district_id', 'courier', 'resi', 'status'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function product_orders(){

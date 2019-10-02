@@ -32,7 +32,7 @@ $router->group(['middleware' => 'token'], function () use ($router){
     $router->get('/my-products', 'ProductController@myProducts');
 
     $router->get('/my-order', 'OrderController@myOrder');
-    $router->get('/order', 'OrderController@order');
+    $router->post('/order', 'OrderController@order');
 
     $router->post('/get-product-by-category', 'ProductController@getProductByCategory');
 
