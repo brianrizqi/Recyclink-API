@@ -78,13 +78,13 @@ class ProductController extends Controller
         $thumbnail = $file->storeAs('public/assets/products', $filename);
         $product = Product::create([
             'user_id' => $user->id,
-            'title' => $request->title,
+            'title' => str_replace('"', '', $request->title),
             'price' => $request->price,
             'stock' => $request->stock,
             'thumbnail' => url('/storage/assets/products/' . $filename),
 //            'thumbnail' => url('storage/assets/product/' . $imageName),
             'category_id' => $request->category_id,
-            'description' => $request->description,
+            'description' => str_replace('"', '', $request->description),
         ]);
 
         return json_response(1, "Berhasil menambahkan product", $product);
