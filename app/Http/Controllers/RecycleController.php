@@ -12,7 +12,7 @@ class RecycleController extends Controller
 {
     public function category()
     {
-        $data = RecycleCategory::select('id', 'category', 'title', 'price')->get();
+        $data = RecycleCategory::select('id', 'category', 'title', 'price', 'thumbnail')->get();
         return json_response(1, 'Berhasil', $data);
     }
 

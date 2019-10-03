@@ -7,7 +7,7 @@ class RecycleCategory extends Model
 {
     use SoftDeletes;
     protected $table = 'recycle_categories';
-    protected $fillable = ['category', 'title', 'price'];
+    protected $fillable = ['category', 'title', 'price', 'thumbnail'];
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function recycles(){
