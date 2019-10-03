@@ -82,4 +82,12 @@ class OrderController extends Controller
 
         return json_response(1, "Berhasil", $data);
     }
+
+    public function confirmOrderBuyer(Request $request){
+        $user = User::auth($request);
+        Invoice::find($request->order_id)->update([
+            'status' => 3
+        ]);
+        return json_response(1, "Berhasil dikonfirmasi");
+    }
 }
