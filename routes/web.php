@@ -21,7 +21,7 @@ $router->post('/login', 'UsersController@login');
 $router->post('/logout', 'UsersController@logout');
 $router->get('/product-category', 'ProductController@category');
 
-$router->group(['middleware' => 'token'], function () use ($router){
+$router->group(['middleware' => 'token'], function () use ($router) {
     $router->get('/profile', 'ProfileController@getProfile');
 
     $router->get('/products', 'ProductController@index');
@@ -43,14 +43,14 @@ $router->group(['middleware' => 'token'], function () use ($router){
     $router->get('/my-recycle-order', 'RecycleController@myOrder');
 });
 
-$router->get('/provinces', function(){
+$router->get('/provinces', function () {
     $rajaongkir = new \Steevenz\Rajaongkir(env("RAJAONGKIR_API"), \Steevenz\Rajaongkir::ACCOUNT_STARTER);
     return json_response(1, "", [
         "provinces" => $rajaongkir->getProvinces()
     ]);
 });
 
-$router->post('/cities', function(\Illuminate\Http\Request $request){
+$router->post('/cities', function (\Illuminate\Http\Request $request) {
     $province = $request->province_id;
     $rajaongkir = new \Steevenz\Rajaongkir("RAJAONGKIR_API", \Steevenz\Rajaongkir::ACCOUNT_STARTER);
 //    return $rajaongkir->getCouriersList();

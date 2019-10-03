@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Invoice;
+use App\Product;
 use App\ProductOrder;
 use App\User;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class OrderController extends Controller
                 'status' => 1
             ]);
 
-            $total = $request->quantity;
+            $total = $request->quantity * Product::find($request->product_id)->price;
             ProductOrder::create([
                 'invoice_id' => $invoice->id,
                 'product_id' => $request->product_id,

@@ -29,7 +29,7 @@ class RecycleController extends Controller
             'status' => 1
         ]);
 
-        return json_response(1, "Order Berhasil", $recycle_order);
+        return json_response(1, "Order Berhasil");
     }
 
     public function myOrder(Request $request){
