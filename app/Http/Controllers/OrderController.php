@@ -75,7 +75,7 @@ class OrderController extends Controller
     public function myProductOrder(Request $request){
         $user = User::auth($request);
         $products = $user->products->pluck('id');
-        $data = Invoice::with('product_orders.product')->whereHas('product_orders', function($q) use ($products){
+        $data = Invoice::with(['product_orders.product', 'buyer'])->whereHas('product_orders', function($q) use ($products){
             $q->whereIn('product_id', $products);
         })->get();
 
