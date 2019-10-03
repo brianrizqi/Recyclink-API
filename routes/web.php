@@ -23,6 +23,7 @@ $router->get('/product-category', 'ProductController@category');
 
 $router->group(['middleware' => 'token'], function () use ($router) {
     $router->get('/profile', 'ProfileController@getProfile');
+    $router->post('/profile', 'ProfileController@updateProfile');
 
     $router->get('/products', 'ProductController@index');
     $router->get('/fav-products', 'ProductController@favouriteProducts');

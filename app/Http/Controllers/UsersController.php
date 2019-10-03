@@ -107,4 +107,16 @@ class UsersController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function updateProfile(Request $request){
+        $user = User::auth($request);
+
+        $user->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email
+        ]);
+
+        return json_response(1, "Profil berhasil diubah");
+    }
 }
