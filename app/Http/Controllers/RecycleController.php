@@ -14,16 +14,16 @@ class RecycleController extends Controller
 
     public function store(Request $request){
         $user = User::auth($request);
-        return $request;
-//        \DB::transaction(function() use ($user){
-//            $order = RecycleOrder::create([
-//                'user_id' => $user->id,
-//                'total_price' => 0,
-//                'quantity' => 0,
-//                'status' => 1
-//            ]);
-//
-//
-//        });
+
+        \DB::transaction(function() use ($user, $request){
+            $order = RecycleOrder::create([
+                'user_id' => $user->id,
+                'total_price' => 0,
+                'quantity' => 0,
+                'status' => 1
+            ]);
+
+
+        });
     }
 }

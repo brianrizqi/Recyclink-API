@@ -32,7 +32,7 @@ class ProductController extends Controller
     public function newProducts()
     {
         $data = Product::with('user')
-            ->orderBy('rating', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get()
             ->take(4);
         return json_response(1, 'Berhasil', $data);
