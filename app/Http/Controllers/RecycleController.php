@@ -19,14 +19,8 @@ class RecycleController extends Controller
     public function store(Request $request)
     {
         $user = User::auth($request);
-        $orders = json_decode($request->orders);
-        $total = 0;
-        $total_weight = 0;
-        foreach ($orders as $order) {
-            $id = $order->category_id;
-            $total += (RecycleCategory::find($id)->price * $order->quantity);
-            $total_weight += $order->quantity;
-        }
+        $total = $request->total_price;
+        $total_weight = $request->total_weight;
 
         $recycle_order = RecycleOrder::create([
             'user_id' => $user->id,
