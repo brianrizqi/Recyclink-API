@@ -16,7 +16,7 @@ class OrderController extends Controller
     public function myOrder(Request $request)
     {
         $user = User::auth($request);
-        $data = Invoice::with('product_orders')->where('user_id', $user->id)->get();
+        $data = Invoice::with('product_orders.product.user')->where('user_id', $user->id)->get();
         return json_response(1, 'Berhasil', $data);
     }
 
@@ -68,7 +68,7 @@ class OrderController extends Controller
         $resi = $request->resi;
         Invoice::find($order_id)->update([
             'resi' => $resi,
-            'status' => 3,
+            'status' => 2   ,
         ]);
         return json_response(1, "Konfirmasi Berhasil");
     }
