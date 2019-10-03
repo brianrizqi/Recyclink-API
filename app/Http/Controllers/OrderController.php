@@ -24,8 +24,6 @@ class OrderController extends Controller
         $user = User::auth($request);
 
         $rajaongkir = new Rajaongkir(env("RAJAONGKIR_API"), Rajaongkir::ACCOUNT_STARTER);
-//        $rajaongkir->getCost()
-
         DB::beginTransaction();
         try {
             $invoice = Invoice::create([
@@ -38,7 +36,7 @@ class OrderController extends Controller
 
             $total = $request->quantity;
             ProductOrder::create([
-                'invoice_id' => $invoice,
+                'invoice_id' => $invoice->id,
                 'product_id' => $request->product_id,
                 'quantity' => $request->quantity,
                 'payment' => $request->payment
@@ -61,5 +59,26 @@ class OrderController extends Controller
          * district_id
          * */
         return json_response(1, "Pesanan berhasil dilakukan");
+    }
+
+    public function confirmOrder(Request $request){
+        $user = User::auth($request);
+        $order_id = $request->order_id;
+        $resi = $request->resi;
+        Invoice::find($order_id)->update([
+            'resi' => $resi,
+            'status' => 3,
+        ]);
+        return json_response(1, "Konfirmasi Berhasil");
+    }
+
+    public function myProductOrder(Request $request){
+        $user = User::auth($request);
+        $products = $user->products->pluck('id');
+        $data = Invoice::with('product_orders.product')->whereHas('product_orders', function($q) use ($products){
+            $q->whereIn('product_id', $products);
+        })->get();
+
+        return json_response(1, "Berhasil", $data);
     }
 }

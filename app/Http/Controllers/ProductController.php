@@ -69,8 +69,6 @@ class ProductController extends Controller
 ////            return json_response_error("Gagal menambahkan product", $temp->errors());
 ////        }
 
-//        return $request->description;
-//	return json_response(0, "debug " . json_encode($request->all()));
         $user = User::auth($request);
         $file = $request->file('thumbnail');
         $image = $request->thumbnail;
