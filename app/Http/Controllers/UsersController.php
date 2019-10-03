@@ -65,9 +65,19 @@ class UsersController extends Controller
         return response()->json([
             'success' => 1,
             'message' => 'Login berhasil',
-            'token' => $token
+            'token' => $token,
+            'role' => $user->role_id,
+            'user' => $user
         ]);
 
+    }
+
+    public function logout(Request $request){
+        $user = User::auth($request);
+        $user->update([
+            'api_token' => null
+        ]);
+        return json_response(1,'Logout Berhasil');
     }
 
     public function verify($token)
@@ -88,5 +98,13 @@ class UsersController extends Controller
                 'message' => 'Token tidak ditemukan'
             ]);
         }
+    }
+
+    public function getProfile(Request $request){
+        $user = User::auth($request);
+
+        return json_response(1, "Berhasil", [
+            'user' => $user,
+        ]);
     }
 }

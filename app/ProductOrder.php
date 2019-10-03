@@ -8,6 +8,7 @@ class ProductOrder extends Model
     use SoftDeletes;
     protected $table = 'product_orders';
     protected $fillable = ['invoice_id', 'product_id', 'quantity'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function invoice(){
         return $this->belongsTo('App\Invoice', 'invoice_id');

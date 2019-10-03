@@ -7,7 +7,8 @@ class RecycleOrder extends Model
 {
     use SoftDeletes;
     protected $table = 'recycle_orders';
-    protected $fillable = ['invoice_id', 'recycle_id', 'quantity'];
+    protected $fillable = ['user_id', 'total_price', 'quantity', 'status'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function invoice(){
         return $this->belongsTo('App\Invoice', 'invoice_id');
