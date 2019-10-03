@@ -45,4 +45,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function products(){
         return $this->hasMany('App\Product', 'user_id');
     }
+
+    public function recycle_orders(){
+        return $this->hasMany('App\RecycleOrder', 'user_id');
+    }
 }

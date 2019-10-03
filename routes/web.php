@@ -40,6 +40,7 @@ $router->group(['middleware' => 'token'], function () use ($router){
 
     $router->get('/recycle-category', 'RecycleController@category');
     $router->post('/recycle', 'RecycleController@store');
+    $router->get('/my-recycle-order', 'RecycleController@myOrder');
 });
 
 $router->get('/provinces', function(){
